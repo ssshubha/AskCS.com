@@ -28,7 +28,7 @@ class PostController extends Controller
     }    
     else 
     {
-      return redirect('/')->withErrors('You have not sufficient permissions for writing post');
+      return redirect('/home')->withMessage('You do not have sufficient permissions for writing post');
     }
   }
   public function store(PostFormRequest $request)
@@ -62,7 +62,7 @@ class PostController extends Controller
     $post = Posts::where('slug',$slug)->first();
     if(!$post)
     {
-       return redirect('/')->withErrors('requested page not found');
+       return redirect('/home')->withMessage('requested page not found');
     }
     $comments = $post->comments;
     return view('posts.show')->withPost($post)->withComments($comments);
@@ -72,7 +72,7 @@ class PostController extends Controller
     $post = Posts::where('slug',$slug)->first();
     if($post && ($request->user()->id == $post->author_id || $request->user()->is_admin()))
       return view('posts.edit')->with('post',$post);
-    return redirect('/')->withErrors('you have not sufficient permissions');
+    return redirect('/home')->withMessage('you do not have sufficient permissions');
   }
   public function update(Request $request)
   {
@@ -113,7 +113,7 @@ class PostController extends Controller
     }
     else
     {
-      return redirect('/')->withErrors('you have not sufficient permissions');
+      return redirect('/home')->withMessage('you do not have sufficient permissions');
     }
   }
 
@@ -125,12 +125,14 @@ class PostController extends Controller
     {
       $post->delete();
       $data['message'] = 'Post deleted Successfully';
+      return redirect('/home')->with($data);
     }
     else 
     {
-      $data['errors'] = 'Invalid Operation. You have not sufficient permissions';
+      //$data['errors'] = 'Invalid Operation. You have not sufficient permissions';
+      return redirect('/home')->withMessage('you do not have sufficient permissions');
     }
-    return redirect('/home')->with($data);
+    
   }
   public function searchbypostin()
   {

@@ -141,4 +141,25 @@ class UserController extends Controller {
 
       return $newstr;
     }
+
+    public function about()
+    {
+        return view('about');
+    }
+    public function contact()
+    {
+        return view('FeedBack');
+    }
+    public function feedback(Request $request)
+    {
+        $message = 'Thank you for your feedback.';
+        $name = $request->input('user_name');
+        $msg = $request->input('user_message');
+        $name=time().$name;
+        $myfile = fopen('mails/'.$name.'.txt', "w");
+        fwrite($myfile, $msg);
+        fclose($myfile);
+        return redirect('/home')->withMessage($message);
+        
+    }
 }

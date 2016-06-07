@@ -34,7 +34,7 @@ class CommentController extends Controller
     $comment = Comments::where('slug',$slug)->first();
     if($comment && ($request->user()->id == $comment->author->id || $request->user()->is_admin()))
       return view('comments.edit')->with('comment',$comment);
-    return redirect('/')->withErrors('you have not sufficient permissions');
+    return redirect('/home')->withMessage('you do not have sufficient permissions');
   }
 
   public function update(Request $request)
@@ -60,7 +60,7 @@ class CommentController extends Controller
     }
     else
     {
-      return redirect($anoslug)->with('message','you have not sufficient permissions');
+      return redirect($anoslug)->with('message','you do not have sufficient permissions');
     }
   }
 
@@ -75,7 +75,8 @@ class CommentController extends Controller
       //$data['message'] = 'Post deleted Successfully';
       return redirect($anoslug)->with('message', 'Comment deleted successfully'); 
     }
-    
-    return redirect($anoslug)->with('message', 'you have not sufficient permission'); 
+    else{
+      return redirect($anoslug)->with('message', 'you do not have sufficient permission');
+    } 
   }
 }

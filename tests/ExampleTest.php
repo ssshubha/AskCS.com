@@ -12,14 +12,14 @@ class ExampleTest extends TestCase
      * @return void
      */
 
-    public function testHome()
-    {
+    // public function testHome()
+    // {
     
 
-    $this->visit('/')
-         ->click('Home')
-         ->seePageIs('/home');
-    }
+    // $this->visit('/')
+    //      ->click('Home')
+    //      ->seePageIs('/home');
+    // }
 
     public function testLogin()
     {

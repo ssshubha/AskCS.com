@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('profile', 'UserController@update_avatar');
 	Route::get('req/{str}', 'UserController@searchinfo');
 	Route::get('requser/{str}', 'UserController@searchinfouser');
+	Route::get('about' , 'UserController@about');
+	Route::get('contact','UserController@contact');
+	Route::post('feedback','UserController@feedback');
 	Route::get('sitestatdnld','PrintController@index');
 	Route::get('searchbypostinput','PostController@searchbypostin');
 	Route::get('searchbyuserinput','PostController@searchbyuserin');
